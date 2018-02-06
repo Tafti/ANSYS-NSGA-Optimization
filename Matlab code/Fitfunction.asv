@@ -1,0 +1,4 @@
+function fitfunction = Fitfunction(x)
+C1=100;
+C2=200;
+fitfunction= C1*mass(x)+C2*Fatigue(input_variable);

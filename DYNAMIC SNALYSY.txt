@@ -1,0 +1,1087 @@
+
+!*  /NOPR   ! Suppress printing of UNDO process 
+/PMACRO ! Echo following commands to log    
+FINISH  ! Make sure we are at BEGIN level 
+
+
+
+/CLEAR,NOSTART  ! Clear model since no SAVE found   
+
+*DO,i,1,100 
+
+
+*DIM,RANDVAR,TABLE,18,200
+
+/UIS, Label, VALUE 
+/UIS, MSGPOP, 3  
+*TREAD,RANDVAR,randominput.csv,,,IJK,200,18
+
+ 
+X1=RANDVAR(1,i)
+X2=RANDVAR(2,i)
+X3=RANDVAR(3,i)
+X4=RANDVAR(4,i)
+X5=RANDVAR(5,i)
+X6=RANDVAR(6,i)
+X7=RANDVAR(7,i)
+X8=RANDVAR(8,i)
+X9=RANDVAR(9,i)
+
+X10=RANDVAR(10,i)
+X11=RANDVAR(11,i)
+X12=RANDVAR(12,i)
+X13=RANDVAR(13,i)
+X14=RANDVAR(14,i)
+X15=RANDVAR(15,i)
+X16=RANDVAR(16,i)
+X17=RANDVAR(17,i)
+
+
+!frequency
+X18=RANDVAR(18,i)
+
+
+!*  
+/NOPR   
+KEYW,PR_SET,1   
+KEYW,PR_STRUC,1 
+KEYW,PR_THERM,0 
+KEYW,PR_FLUID,0 
+KEYW,PR_ELMAG,0 
+KEYW,MAGNOD,0   
+KEYW,MAGEDG,0   
+KEYW,MAGHFE,0   
+KEYW,MAGELC,0   
+KEYW,PR_MULTI,0 
+KEYW,PR_CFD,0   
+/GO 
+!*  
+!*  
+
+/PREP7  
+
+
+
+K,1,0,0,0,  
+K,2,0.00010197,0.00025386,0,
+k,3,0.00012688,-0.00015937,0,   
+K,4,.00088,.00081,0,
+K,5,.00097545,-0.00061773,0,
+K,6,X15-.00225,.0048,0,  
+K,7,X15-.00195,0,0,  
+K,8,X15,.003,0,  
+K,9,X15-.00007,.0014,0,  
+K,10,X15-.00187906,0.00136347,0,   
+K,11,X15-.00197267,0.00291609,0,
+
+K,12,X15-.00225,.0048,X17,  
+K,13,X15-.00225,.0048+.001,X17+.00095,  
+K,14,X15-.00225,.0048+.001,X17-.00095,  
+K,15,X15-.00195,0,X17,  
+K,16,X15-.00195,0-.001,X17+.00095,  
+K,17,X15-.00195,0-.001,X17-.00095,
+
+K,18,X15-.00225,.0048,X16,  
+K,19,X15-.00225,.0048+.001,X16+.00095,  
+K,20,X15-.00225,.0048+.001,X16-.00095,  
+K,21,X15-.00195,0,X16,  
+K,22,X15-.00195,0-.001,X16+.00095,  
+K,23,X15-.00195,0-.001,X16-.00095,
+
+
+LSTR,      2,4  
+LSTR,      5,7  
+LSTR,     3,5   
+LSTR,       4,6 
+LSTR,      8,9  
+/REP,FAST   
+FLST,3,3,3  
+FITEM,3,3   
+FITEM,3,1   
+FITEM,3,2   
+BSPLIN, ,P51X   
+LARC, 7, 9, 10, .00198  
+LARC, 6, 8, 11, .0022   
+FLST,2,8,4  
+FITEM,2,2   
+FITEM,2,7   
+FITEM,2,8   
+FITEM,2,4   
+FITEM,2,5   
+FITEM,2,3   
+FITEM,2,6   
+FITEM,2,1   
+AL,P51X 
+
+FLST,2,1,5,ORDE,1   
+FITEM,2,1   
+VEXT,P51X, , ,0,0,0.254,,,, 
+FLST,3,3,3  
+FITEM,3,14  
+FITEM,3,12  
+FITEM,3,13  
+BSPLIN, ,P51X   
+LSTR,      13,      14  
+FLST,2,2,4  
+FITEM,2,25  
+FITEM,2,26  
+AL,P51X 
+VDRAG,      11, , , , , ,      13  
+
+LSTR,      16,      17  
+FLST,3,3,3  
+FITEM,3,16  
+FITEM,3,15  
+FITEM,3,17  
+BSPLIN, ,P51X   
+FLST,2,2,4  
+FITEM,2,31  
+FITEM,2,32  
+AL,P51X 
+VDRAG,      15, , , , , ,       9   
+
+LSTR,      19,      20  
+LSTR,      22,      23  
+FLST,3,3,3  
+FITEM,3,22  
+FITEM,3,21  
+FITEM,3,23  
+BSPLIN, ,P51X   
+FLST,3,3,3  
+FITEM,3,19  
+FITEM,3,18  
+FITEM,3,20  
+BSPLIN, ,P51X   
+FLST,2,2,4  
+FITEM,2,40  
+FITEM,2,37  
+AL,P51X 
+FLST,2,2,4  
+FITEM,2,39  
+FITEM,2,38  
+AL,P51X 
+LPLOT   
+VDRAG,      19, , , , , ,       4   
+VDRAG,      20, , , , , ,       2  
+
+ET,1,SOLID187   
+!*  
+ET,2,SHELL281  
+!*
+!ET,3,TARGE170
+!*
+!ET,4,CONTA174
+!*
+!ET,5,TARGE170
+!*
+!ET,6,CONTA174
+!*
+!ET,7,TARGE170
+!*
+!ET,8,CONTA174
+!*
+!ET,9,TARGE170
+!*
+!ET,10,CONTA174
+!*
+!ET,11,TARGE170
+!*
+!ET,12,CONTA174
+!*
+!ET,13,TARGE170
+!*
+!ET,14,CONTA174
+!*
+!ET,15,TARGE170
+!*
+!ET,16,CONTA174
+
+
+
+!!!!!!!!!!!!! MATERIAL PROPERTY
+
+!*  
+MPTEMP,,,,,,,,  
+MPTEMP,1,0  
+MPDATA,EX,1,,2875*10000000 
+MPDATA,PRXY,1,,.33  
+MPTEMP,,,,,,,,  
+MPTEMP,1,0  
+MPDATA,DENS,1,,1450 
+MPTEMP,,,,,,,,  
+MPTEMP,1,0  
+MPDATA,EX,2,,130000000000  
+MPDATA,PRXY,2,, 
+MPTEMP,,,,,,,,  
+MPTEMP,1,0  
+MPDATA,DENS,2,,8940  
+
+!*  
+MPTEMP,,,,,,,,  
+MPTEMP,1,0  
+MPDATA,EX,3,,200000000000 
+MPDATA,PRXY,3,, 
+MPTEMP,,,,,,,,  
+MPTEMP,1,0  
+MPDATA,DENS,3,,8908 
+!!!!!!!!!!!!
+!!!!!COATING PROPERTIES
+sect,1,shell,, top 
+secdata, X1,2,0.0,3  
+secdata, X2,3,0.0,3  
+secoffset,MID   
+seccontrol,,,, , , ,
+
+sect,2,shell,,topright  
+secdata, X3,2,0.0,3  
+secdata, X4,3,0.0,3 
+secoffset,MID   
+seccontrol,,,, , , ,
+sect,6,shell,,bottomleft
+secdata, X5,2,0.0,3  
+secdata, X6,3,0.0,3   
+secoffset,MID   
+seccontrol,,,, , , ,
+sect,3,shell,,        right 
+secdata, X7,2,0,3   
+secdata, X8,3,0,3   
+secoffset,MID   
+seccontrol,0,0,0, 0, 1, 1, 1
+sect,4,shell,,        bottom right  
+secdata, X9,2,0,3   
+secdata, X10,3,0,3   
+secoffset,MID   
+seccontrol,0,0,0, 0, 1, 1, 1
+sect,5,shell,,        bottom 
+secdata, X11,2,0,3   
+secdata, X12,3,0,3   
+secoffset,MID   
+seccontrol,0,0,0, 0, 1, 1, 1
+sect,7,shell,,        top left  
+secdata, X13,2,0,3   
+secdata, X14,3,0,3   
+secoffset,MID   
+seccontrol,0,0,0, 0, 1, 1, 1
+
+
+
+
+!!!Creating coating(areas)
+
+
+
+ADRAG,       4, , , , , ,      21   
+ADRAG,       8, , , , , ,      21   
+ADRAG,       5, , , , , ,      20 
+ADRAG,       7, , , , , ,      18   
+ADRAG,       2, , , , , ,      18   
+ADRAG,       1, , , , , ,      17   
+ADRAG,       3, , , , , ,      22   
+
+
+!!!!devide areas for contact
+
+K,124,X15-.00225,.0048,X17+.002,
+K,125,X15-.00225,.0048,X17-.002,
+K,126,.00088,.00081,X17-.002,  
+K,127,.00088,.00081,X17+.002,  
+K,128,X15-.00225,.0048,X16+.002,
+K,129,X15-.00225,.0048,X16-.002,
+K,130,.00088,.00081,X16-.002,   
+K,131,.00088,.00081,X16+.002,  
+
+K,132,X15-.00195,0,X17+.002,
+K,133,X15-.00195,0,X17-.002,
+K,134,.00097545,-0.00061773,X17-.002,  
+K,135,.00097545,-0.00061773,X17+.002,   
+K,136,X15-.00195,0,X16+.002,
+K,137,X15-.00195,0,X16-.002,
+K,138,.00097545,-0.00061773,X16-.002,   
+K,139,.00097545,-0.00061773,X16+.002,
+
+LSTR,      133,134  
+LSTR,     132,135   
+LSTR,     136,139   
+LSTR,     137,138   
+LSTR,      125,126  
+LSTR,     124,127   
+LSTR,     129,130   
+LSTR,     128,131  
+
+FLST,2,1,5,ORDE,1   
+FITEM,2,7   
+FLST,3,4,4,ORDE,2   
+FITEM,3,74  
+FITEM,3,-77 
+ASBL,P51X,P51X, ,KEEP,KEEP  
+
+FLST,2,1,5,ORDE,1   
+FITEM,2,3   
+FLST,3,4,4,ORDE,4   
+FITEM,3,71  
+FITEM,3,70  
+FITEM,3,72  
+FITEM,3,-73 
+ASBL,P51X,P51X, ,KEEP,KEEP  
+
+
+
+!!!mesh main volume
+
+TYPE,   1   
+MAT,       1
+REAL,   
+ESYS,       0   
+SECNUM,   1 
+!*  
+ESIZE,.0011,0,  
+MSHAPE,1,3D 
+MSHKEY,0
+!*  
+CM,_Y,VOLU  
+VSEL, , , ,       1 
+CM,_Y1,VOLU 
+CHKMSH,'VOLU'   
+CMSEL,S,_Y  
+!*  
+VMESH,_Y1   
+!*  
+CMDELE,_Y   
+CMDELE,_Y1  
+CMDELE,_Y2  
+
+
+
+
+
+!*  
+TYPE,   2   
+MAT,       1
+REAL,   
+ESYS,       0   
+SECNUM,   1 
+!*  
+ESIZE,0.0008,0, 
+CM,_Y,AREA  
+ASEL, , , ,      34
+CM,_Y1,AREA 
+CHKMSH,'AREA'   
+CMSEL,S,_Y  
+!*  
+AMESH,_Y1   
+!*  
+CMDELE,_Y   
+CMDELE,_Y1  
+CMDELE,_Y2  
+!*  
+!*  
+TYPE,   2   
+MAT,       1
+REAL,   
+ESYS,       0   
+SECNUM,   1 
+!*  
+ESIZE,0.0008,0, 
+CM,_Y,AREA  
+ASEL, , , ,      35
+CM,_Y1,AREA 
+CHKMSH,'AREA'   
+CMSEL,S,_Y  
+!*  
+AMESH,_Y1   
+!*  
+CMDELE,_Y   
+CMDELE,_Y1  
+CMDELE,_Y2  
+!* 
+!*  
+TYPE,   2   
+MAT,       1
+REAL,   
+ESYS,       0   
+SECNUM,   1 
+!*  
+ESIZE,0.0008,0, 
+CM,_Y,AREA  
+ASEL, , , ,      37
+CM,_Y1,AREA 
+CHKMSH,'AREA'   
+CMSEL,S,_Y  
+!*  
+AMESH,_Y1   
+!*  
+CMDELE,_Y   
+CMDELE,_Y1  
+CMDELE,_Y2  
+!* 
+TYPE,   2   
+MAT,       1
+REAL,   
+ESYS,       0   
+SECNUM,   2 
+!*  
+ESIZE,0.0008,0, 
+CM,_Y,AREA  
+ASEL, , , ,      6
+CM,_Y1,AREA 
+CHKMSH,'AREA'   
+CMSEL,S,_Y  
+!*  
+AMESH,_Y1   
+!*  
+CMDELE,_Y   
+CMDELE,_Y1  
+CMDELE,_Y2  
+!*  
+TYPE,   2   
+MAT,       1
+REAL,   
+ESYS,       0   
+SECNUM,   3 
+!*  
+ESIZE,0.0008,0, 
+CM,_Y,AREA  
+ASEL, , , ,      5
+CM,_Y1,AREA 
+CHKMSH,'AREA'   
+CMSEL,S,_Y  
+!*  
+AMESH,_Y1   
+!*  
+CMDELE,_Y   
+CMDELE,_Y1  
+CMDELE,_Y2  
+!*  
+TYPE,   2   
+MAT,       1
+REAL,   
+ESYS,       0   
+SECNUM,   4 
+!*  
+ESIZE,0.0008,0, 
+CM,_Y,AREA  
+ASEL, , , ,      4
+CM,_Y1,AREA 
+CHKMSH,'AREA'   
+CMSEL,S,_Y  
+!*  
+AMESH,_Y1   
+!*  
+CMDELE,_Y   
+CMDELE,_Y1  
+CMDELE,_Y2  
+!*
+!*  
+TYPE,   2   
+MAT,       1
+REAL,   
+ESYS,       0   
+SECNUM,   5 
+!*  
+ESIZE,0.0008,0, 
+CM,_Y,AREA  
+ASEL, , , ,      39
+CM,_Y1,AREA 
+CHKMSH,'AREA'   
+CMSEL,S,_Y  
+!*  
+AMESH,_Y1   
+!*  
+CMDELE,_Y   
+CMDELE,_Y1  
+CMDELE,_Y2  
+!* 
+!*  
+TYPE,   2   
+MAT,       1
+REAL,   
+ESYS,       0   
+SECNUM,   5 
+!*  
+ESIZE,0.0008,0, 
+CM,_Y,AREA  
+ASEL, , , ,      40
+CM,_Y1,AREA 
+CHKMSH,'AREA'   
+CMSEL,S,_Y  
+!*  
+AMESH,_Y1   
+!*  
+CMDELE,_Y   
+CMDELE,_Y1  
+CMDELE,_Y2
+
+!*  
+TYPE,   2   
+MAT,       1
+REAL,   
+ESYS,       0   
+SECNUM,   5 
+!*  
+ESIZE,0.0008,0, 
+CM,_Y,AREA  
+ASEL, , , ,      42
+CM,_Y1,AREA 
+CHKMSH,'AREA'   
+CMSEL,S,_Y  
+!*  
+AMESH,_Y1   
+!*  
+CMDELE,_Y   
+CMDELE,_Y1  
+CMDELE,_Y2 
+!*   
+TYPE,   2   
+MAT,       1
+REAL,   
+ESYS,       0   
+SECNUM,   6 
+!*  
+ESIZE,0.0008,0, 
+CM,_Y,AREA  
+ASEL, , , ,      8
+CM,_Y1,AREA 
+CHKMSH,'AREA'   
+CMSEL,S,_Y  
+!*  
+AMESH,_Y1   
+!*  
+CMDELE,_Y   
+CMDELE,_Y1  
+CMDELE,_Y2  
+!*  
+TYPE,   2   
+MAT,       1
+REAL,   
+ESYS,       0   
+SECNUM,   7 
+!*  
+ESIZE,0.0008,0, 
+CM,_Y,AREA  
+ASEL, , , ,      10
+CM,_Y1,AREA 
+CHKMSH,'AREA'   
+CMSEL,S,_Y  
+!*  
+AMESH,_Y1   
+!*  
+CMDELE,_Y   
+CMDELE,_Y1  
+CMDELE,_Y2  
+
+
+!!! defining coating contact
+
+FLST,2,4,5,ORDE,4   
+FITEM,2,12  
+FITEM,2,17  
+FITEM,2,21  
+FITEM,2,24  
+AESIZE,P51X,0.0002, 
+!*  
+!*  
+CM,_NODECM,NODE 
+CM,_ELEMCM,ELEM 
+CM,_KPCM,KP 
+CM,_LINECM,LINE 
+CM,_AREACM,AREA 
+CM,_VOLUCM,VOLU 
+/GSAV,cwz,gsav,,temp
+MP,MU,1,
+MAT,1   
+MP,EMIS,1,7.88860905221e-031
+R,3 
+REAL,3  
+ET,3,170
+ET,4,174
+R,3,,,1.0,0.1,0,
+RMORE,,,1.0E20,0.0,1.0, 
+RMORE,0.0,0,1.0,,1.0,0.5
+RMORE,0,1.0,1.0,0.0,,1.0
+KEYOPT,4,4,0
+KEYOPT,4,5,1
+KEYOPT,4,7,0
+KEYOPT,4,8,0
+KEYOPT,4,9,1
+KEYOPT,4,10,2   
+KEYOPT,4,11,0   
+KEYOPT,4,12,4   
+KEYOPT,4,2,0
+KEYOPT,3,1,0
+KEYOPT,3,2,0
+KEYOPT,3,3,0
+KEYOPT,3,5,0
+! Generate the target surface   
+ASEL,S,,,21 
+CM,_TARGET,AREA 
+AATT,-1,3,3,-1  
+TYPE,3  
+AMESH,ALL   
+! Create a pilot node   
+! At center of mass of target geometric entities
+N,, (X15-.00225+.00088)/2,0.00322377577785,X16
+nodenumber1=node((X15-.00225+.00088)/2,0.00322377577785,X16)
+TSHAP,PILO  
+E,nodenumber1
+! Generate the contact surface  
+ASEL,S,,,38 
+CM,_CONTACT,AREA
+TYPE,4  
+NSLA,S,1
+ESLN,S,0
+NSLE,A,CT2 ! CZMESH patch (fsk qt-40109 8/2008) 
+ESURF   
+*SET,_REALID,3  
+ALLSEL  
+ESEL,ALL
+ESEL,S,TYPE,,3  
+ESEL,A,TYPE,,4  
+ESEL,R,REAL,,3  
+ASEL,S,REAL,,3  
+/PSYMB,ESYS,1   
+/PNUM,TYPE,1
+/NUM,1  
+EPLOT   
+  
+! Reverse target normals
+CM,_Y,AREA  
+ASEL, , , ,      21 
+CM,_YLN,LINE
+CM,_YEL,ELEM
+CM,_YND,NODE
+LSLA,S,1
+NSLA,S,1
+ESLN,S,1
+ESEL,R,REAL,,_REALID
+ESURF,,REVERSE  
+CMSEL,S,_Y  
+CMSEL,S,_YLN
+CMSEL,S,_YEL
+CMSEL,S,_YND
+CMDELE,_Y   
+CMDELE,_YLN 
+CMDELE,_YEL 
+CMDELE,_YND 
+/REPLOT 
+!*  
+ESEL,ALL
+ESEL,S,TYPE,,3  
+ESEL,A,TYPE,,4  
+ESEL,R,REAL,,3  
+ASEL,S,REAL,,3  
+/PSYMB,ESYS,1   
+/PNUM,TYPE,1
+/NUM,1  
+EPLOT   
+ESEL,ALL
+ESEL,S,TYPE,,3  
+ESEL,A,TYPE,,4  
+ESEL,R,REAL,,3  
+ASEL,S,REAL,,3  
+CMSEL,A,_NODECM 
+CMDEL,_NODECM   
+CMSEL,A,_ELEMCM 
+CMDEL,_ELEMCM   
+CMSEL,S,_KPCM   
+CMDEL,_KPCM 
+CMSEL,S,_LINECM 
+CMDEL,_LINECM   
+CMSEL,S,_AREACM 
+CMDEL,_AREACM   
+CMSEL,S,_VOLUCM 
+CMDEL,_VOLUCM   
+/GRES,cwz,gsav  
+CMDEL,_TARGET   
+CMDEL,_CONTACT  
+!*  
+CM,_CWZ_EL,ELEM 
+CM,_CWZ_ND,NODE 
+CM,_CWZ_KP,KP   
+CM,_CWZ_LN,LINE 
+CM,_CWZ_AR,AREA 
+CM,_CWZ_VL,VOLU 
+ESEL,NONE   
+ESEL,A,REAL,,3  
+ESEL,R,ENAME,,169,177   
+NSLE
+KSLN,S  
+LSLK,S,1
+ASLL,S,1
+CM,_CWZ_EL_UE,ELEM  
+NSLE
+ESLN
+ESEL,U,ENAME,,169,177   
+CMSEL,A,_CWZ_EL_UE  
+CNCHECK 
+CMDEL,_CWZ_EL_UE
+CMSEL,S,_CWZ_EL 
+CMDEL,_CWZ_EL   
+CMSEL,S,_CWZ_ND 
+CMDEL,_CWZ_ND   
+CMSEL,S,_CWZ_KP 
+CMDEL,_CWZ_KP   
+CMSEL,S,_CWZ_LN 
+CMDEL,_CWZ_LN   
+CMSEL,S,_CWZ_AR 
+CMDEL,_CWZ_AR   
+CMSEL,S,_CWZ_VL 
+CMDEL,_CWZ_VL   
+
+
+CM,_NODECM,NODE 
+CM,_ELEMCM,ELEM 
+CM,_KPCM,KP 
+CM,_LINECM,LINE 
+CM,_AREACM,AREA 
+CM,_VOLUCM,VOLU 
+/GSAV,cwz,gsav,,temp
+MP,MU,1,0   
+MAT,1   
+MP,EMIS,1,7.88860905221e-031
+R,4 
+REAL,4  
+ET,5,170
+ET,6,174
+R,4,,,1.0,0.1,0,
+RMORE,,,1.0E20,0.0,1.0, 
+RMORE,0.0,0,1.0,,1.0,0.5
+RMORE,0,1.0,1.0,0.0,,1.0
+KEYOPT,6,4,0
+KEYOPT,6,5,1
+KEYOPT,6,7,0
+KEYOPT,6,8,0
+KEYOPT,6,9,0
+KEYOPT,6,10,2   
+KEYOPT,6,11,0   
+KEYOPT,6,12,4   
+KEYOPT,6,2,0
+KEYOPT,5,1,0
+KEYOPT,5,2,0
+KEYOPT,5,3,0
+KEYOPT,5,5,0
+! Generate the target surface   
+ASEL,S,,,12 
+CM,_TARGET,AREA 
+AATT,-1,4,5,-1  
+TYPE,5  
+AMESH,ALL   
+! Create a pilot node   
+! At center of mass of target geometric entities
+N,, (X15-.00225+.00088)/2,0.00322377577785,X17
+nodenumber2=node((X15-.00225+.00088)/2,0.00322377577785,X17)
+TSHAP,PILO  
+E,nodenumber2
+! Generate the contact surface  
+ASEL,S,,,36 
+CM,_CONTACT,AREA
+TYPE,6  
+NSLA,S,1
+ESLN,S,0
+NSLE,A,CT2 ! CZMESH patch (fsk qt-40109 8/2008) 
+ESURF   
+*SET,_REALID,4  
+ALLSEL  
+ESEL,ALL
+ESEL,S,TYPE,,5  
+ESEL,A,TYPE,,6  
+ESEL,R,REAL,,4  
+ASEL,S,REAL,,4  
+/PSYMB,ESYS,1   
+/PNUM,TYPE,1
+/NUM,1  
+  
+   
+ESEL,ALL
+ESEL,S,TYPE,,5  
+ESEL,A,TYPE,,6  
+ESEL,R,REAL,,4  
+ASEL,S,REAL,,4  
+CMSEL,A,_NODECM 
+CMDEL,_NODECM   
+CMSEL,A,_ELEMCM 
+CMDEL,_ELEMCM   
+CMSEL,S,_KPCM   
+CMDEL,_KPCM 
+CMSEL,S,_LINECM 
+CMDEL,_LINECM   
+CMSEL,S,_AREACM 
+CMDEL,_AREACM   
+CMSEL,S,_VOLUCM 
+CMDEL,_VOLUCM   
+/GRES,cwz,gsav  
+CMDEL,_TARGET   CMDEL,_CONTACT  
+/USER,  1   
+/REPLO  
+!*  
+!*  
+CM,_NODECM,NODE 
+CM,_ELEMCM,ELEM 
+CM,_KPCM,KP 
+CM,_LINECM,LINE 
+CM,_AREACM,AREA 
+CM,_VOLUCM,VOLU 
+/GSAV,cwz,gsav,,temp
+MP,MU,1,0   
+MAT,1   
+MP,EMIS,1,7.88860905221e-031
+R,5 
+REAL,5  
+ET,7,170
+ET,8,174
+R,5,,,1.0,0.1,0,
+RMORE,,,1.0E20,0.0,1.0, 
+RMORE,0.0,0,1.0,,1.0,0.5
+RMORE,0,1.0,1.0,0.0,,1.0
+KEYOPT,8,4,0
+KEYOPT,8,5,1
+KEYOPT,8,7,0
+KEYOPT,8,8,0
+KEYOPT,8,9,0
+KEYOPT,8,10,2   
+KEYOPT,8,11,0   
+KEYOPT,8,12,4   
+KEYOPT,8,2,0
+KEYOPT,7,1,0
+KEYOPT,7,2,0
+KEYOPT,7,3,0
+KEYOPT,7,5,0
+! Generate the target surface   
+ASEL,S,,,24 
+CM,_TARGET,AREA 
+AATT,-1,5,7,-1  
+TYPE,7  
+AMESH,ALL   
+! Create a pilot node   
+! At center of mass of target geometric entities
+N,, (X15-.00225+.00088)/2,-0.000728108554225,X16 
+nodenumber3=node( (X15-.00225+.00088)/2,-0.000728108554225,X16)
+TSHAP,PILO  
+E,nodenumber3
+! Generate the contact surface  
+ASEL,S,,,43 
+CM,_CONTACT,AREA
+TYPE,8  
+NSLA,S,1
+ESLN,S,0
+NSLE,A,CT2 ! CZMESH patch (fsk qt-40109 8/2008) 
+ESURF   
+*SET,_REALID,5  
+ALLSEL  
+ESEL,ALL
+ESEL,S,TYPE,,7  
+ESEL,A,TYPE,,8  
+ESEL,R,REAL,,5  
+ASEL,S,REAL,,5  
+/PSYMB,ESYS,1   
+/PNUM,TYPE,1
+/NUM,1  
+EPLOT   
+/AUTO,1 
+   
+ESEL,ALL
+ESEL,S,TYPE,,7  
+ESEL,A,TYPE,,8  
+ESEL,R,REAL,,5  
+ASEL,S,REAL,,5  
+CMSEL,A,_NODECM 
+CMDEL,_NODECM   
+CMSEL,A,_ELEMCM 
+CMDEL,_ELEMCM   
+CMSEL,S,_KPCM   
+CMDEL,_KPCM 
+CMSEL,S,_LINECM 
+CMDEL,_LINECM   
+CMSEL,S,_AREACM 
+CMDEL,_AREACM   
+CMSEL,S,_VOLUCM 
+CMDEL,_VOLUCM   
+/GRES,cwz,gsav  
+CMDEL,_TARGET   
+CMDEL,_CONTACT  
+
+CM,_NODECM,NODE 
+CM,_ELEMCM,ELEM 
+CM,_KPCM,KP 
+CM,_LINECM,LINE 
+CM,_AREACM,AREA 
+CM,_VOLUCM,VOLU 
+/GSAV,cwz,gsav,,temp
+MP,MU,1,0   
+MAT,1   
+MP,EMIS,1,7.88860905221e-031
+R,6 
+REAL,6  
+ET,9,170
+ET,10,174   
+R,6,,,1.0,0.1,0,
+RMORE,,,1.0E20,0.0,1.0, 
+RMORE,0.0,0,1.0,,1.0,0.5
+RMORE,0,1.0,1.0,0.0,,1.0
+KEYOPT,10,4,0   
+KEYOPT,10,5,1   
+KEYOPT,10,7,0   
+KEYOPT,10,8,0   
+KEYOPT,10,9,0   
+KEYOPT,10,10,2  
+KEYOPT,10,11,0  
+KEYOPT,10,12,4  
+KEYOPT,10,2,0   
+KEYOPT,9,1,0
+KEYOPT,9,2,0
+KEYOPT,9,3,0
+KEYOPT,9,5,0
+! Generate the target surface   
+ASEL,S,,,17 
+CM,_TARGET,AREA 
+AATT,-1,6,9,-1  
+TYPE,9  
+AMESH,ALL   
+! Create a pilot node   
+! At center of mass of target geometric entities
+N,, (X15-.00225+.00088)/2,-0.000728108554225,X17  
+nodenumber4=node( (X15-.00225+.00088)/2,-0.000728108554225,X17)
+TSHAP,PILO  
+E,nodenumber4
+! Generate the contact surface  
+ASEL,S,,,41 
+CM,_CONTACT,AREA
+TYPE,10 
+NSLA,S,1
+ESLN,S,0
+NSLE,A,CT2 ! CZMESH patch (fsk qt-40109 8/2008) 
+ESURF   
+*SET,_REALID,6  
+ALLSEL  
+ESEL,ALL
+ESEL,S,TYPE,,9  
+ESEL,A,TYPE,,10 
+ESEL,R,REAL,,6  
+ASEL,S,REAL,,6  
+/PSYMB,ESYS,1   
+/PNUM,TYPE,1
+/NUM,1  
+EPLOT   
+/AUTO,1 
+
+! Reverse target normals
+CM,_Y,AREA  
+ASEL, , , ,      17 
+CM,_YLN,LINE
+CM,_YEL,ELEM
+CM,_YND,NODE
+LSLA,S,1
+NSLA,S,1
+ESLN,S,1
+ESEL,R,REAL,,_REALID
+ESURF,,REVERSE  
+CMSEL,S,_Y  
+CMSEL,S,_YLN
+CMSEL,S,_YEL
+CMSEL,S,_YND
+CMDELE,_Y   
+CMDELE,_YLN 
+CMDELE,_YEL 
+CMDELE,_YND 
+/REPLOT 
+!*  
+ESEL,ALL
+ESEL,S,TYPE,,9  
+ESEL,A,TYPE,,10 
+ESEL,R,REAL,,6  
+ASEL,S,REAL,,6  
+/PSYMB,ESYS,1   
+/PNUM,TYPE,1
+/NUM,1  
+EPLOT   
+
+/REPLO  
+ESEL,ALL
+ESEL,S,TYPE,,9  
+ESEL,A,TYPE,,10 
+ESEL,R,REAL,,6  
+ASEL,S,REAL,,6  
+CMSEL,A,_NODECM 
+CMDEL,_NODECM   
+CMSEL,A,_ELEMCM 
+CMDEL,_ELEMCM   
+CMSEL,S,_KPCM   
+CMDEL,_KPCM 
+CMSEL,S,_LINECM 
+CMDEL,_LINECM   
+CMSEL,S,_AREACM 
+CMDEL,_AREACM   
+CMSEL,S,_VOLUCM 
+CMDEL,_VOLUCM   
+/GRES,cwz,gsav  
+CMDEL,_TARGET   
+CMDEL,_CONTACT  
+
+
+
+
+
+
+
+
+*GET,AREA37,AREA,37,AREA
+
+/SOL
+!*  
+ANTYPE,3
+FLST,2,1,5,ORDE,1   
+FITEM,2,37  
+/GO 
+!*  
+SFA,P51X,1,PRES,(150* 0.5766E-02)/AREA37 
+HARFRQ,X18,X18+1, 
+NSUBST,1,   
+KBC,0 
+/STATUS,SOLU
+SOLVE   
+FINISH  
+
+/POST1
+
+
+j=1
+SET,,, ,,, ,1   
+!*  
+PLNSOL, S,EQV, 0,1.0
+ 
+
+/OUTPUT,NODESTRESS,txt,C:\tmpANSYS\, APPEND
+
+*get,Par,PLNSOL,,max
+
+
+/OUT
+
+PLNSOL, U,Y, 0,1.0
+
+
+/OUTPUT,ELESTRESS,txt,C:\tmpANSYS\, APPEND 
+*get,Par2,PLNSOL,,max
+
+
+/OUT
+
+/OUTPUT,DY,txt,C:\tmpANSYS\, APPEND 
+
+*get,Par3,PLNSOL,,MIN
+/OUT
+
+FINISH
+
+/CLEAR
+
+*ENDDO
+
+
+
+
+
+
+
+
+
+
